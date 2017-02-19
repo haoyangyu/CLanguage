@@ -17,15 +17,6 @@ void preOrderPrint(TreeNode<T> *node) {
 }
 
 template <typename T>
-void preOrderPrint(std::unique_ptr<TreeNode<T>> node) {
-	if (node != NULL) {
-		std::cout<<node->nodeData<<std::endl;
-		preOrderPrint(node->left);
-		preOrderPrint(node->right);
-	}
-}
-
-template <typename T>
 void inOrderPrint(TreeNode<T> *node) {
 	if (node != NULL) {
 		inOrderPrint(node->left);
@@ -42,6 +33,20 @@ void postOrderPrint(TreeNode<T> *node) {
 		std::cout<<node->nodeData<<std::endl;
 	}
 }
+
+template <typename T>
+int countNodes( TreeNode<T> *root ) {
+    if ( root == NULL )
+       return 0;
+    else {
+       int count = 1;   // Start by counting the root.
+       count += countNodes(root->left);  // Add the number of nodes
+                                        //     in the left subtree.
+       count += countNodes(root->right); // Add the number of nodes
+                                        //    in the right subtree.
+       return count;  // Return the total.
+    }
+ }
 
 int main(int argc, char const *argv[])
 {
@@ -67,6 +72,9 @@ int main(int argc, char const *argv[])
 	inOrderPrint(node1);
 	std::cout<<"postOrderPrint"<<std::endl;
 	postOrderPrint(node1);
+
+	std::cout<<"count"<<std::endl;
+	std::cout<<countNodes(node1)<<std::endl;
 
 	delete node1;
 	delete node2;
